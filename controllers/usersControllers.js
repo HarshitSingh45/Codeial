@@ -1,3 +1,5 @@
+const user = require('../models/users');
+
 module.exports.user = function(req,res){
     return res.render('users', {
         title: 'user page'
@@ -20,7 +22,26 @@ module.exports.signin = function(req,res){
 
 // create action
 module.exports.create = function(req, res){
-    // TODO later
+    // validating password and confirm password is same or not
+    console.log('creating user');
+    if(req.body.password != req.body.Cpassword ){
+        return res.redirect('back');
+    }
+
+    user.findOne({email: req.body.email}, function(err, User){
+        if(err){console.log('Error in finding the user'); return}
+
+        if(!User){
+            user.create(req.body, function(err, User){
+                if(err){console.log('Error in creating user while signup',err); return}
+
+                return res.redirect('/users/signin');
+            });
+        }else{
+            return res.redirect('back');
+        }
+    })
+
 }
 
 // create session acion
