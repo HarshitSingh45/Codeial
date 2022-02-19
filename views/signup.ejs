@@ -1,15 +1,18 @@
 <link rel="stylesheet" href="css/signup.css">
 <div id="container">
     <h1>Sign-up form</h1>
-    <form action="">
+    <form action="users/create" method="post">
         <label for="email">Email</label><br>
-        <input type="email" name="email" placeholder="Enter Email id">
+        <input type="email" name="email" placeholder="Enter Email id" required>
         <br><br>
         <label for="username">Username</label><br>
-        <input type="text" name="username" placeholder="Enter Username">
+        <input type="text" name="username" placeholder="Enter Username"  required>
         <br><br>
         <label for="password">Password</label><br>
-        <input type="password" name="password" placeholder="Enter Password">
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <br><br>
+        <label for="Cpassword">Confirm Password</label><br>
+        <input type="password" name="Cpassword" placeholder="Enter Password Again" required>
         <br><br><br>
         <button id="signup-btn" type="submit">SignUp</button>
     </form>
