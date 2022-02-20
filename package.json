@@ -6,7 +6,8 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
     "mongoose": "^6.2.2",
-    "passport": "^0.5.2"
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
   },
   "name": "codeial",
   "version": "1.0.0",
