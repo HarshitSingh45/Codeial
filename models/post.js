@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema({
         // the post we creating it needs to be linked to the user(who posted that post)
         // type will refer to the user schema
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     }
 },{
     timestamps: true
