@@ -32,6 +32,17 @@
                         </form>
                     <% } %>
                 </div>
+                <div class="post=comments=list " style="border: 1px solid coral;">
+                    <h3>comments</h3>
+                    <ul id="post-comments-<%= post._id %>">
+                        <% for(comment of post.comments) { %>
+                            <li>
+                                <p><%= comment.content %></p>
+                                <small><%= comment.user.name %></small>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
             </li>    
             <%} %>
         </ul>
