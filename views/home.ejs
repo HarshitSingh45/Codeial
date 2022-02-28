@@ -22,6 +22,13 @@
                     <small>
                         <%= post.user.name %>
                     </small>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <% if(locals.user && locals.user.id == post.user.id) { %>
+                        <a href="/posts/destroy/<%= post._id %>">
+                            <button type="submit"> Delete Post </button>
+                        </a>
+                    <% } %>
+                    
                 </div>   
                 <div class="post-commets">
                     <%if(locals.user) { %>
