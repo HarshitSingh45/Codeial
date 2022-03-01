@@ -65,3 +65,14 @@ module.exports.destroySession = function(req,res){
     req.logOut();
     return res.redirect('/');
 }
+
+module.exports.update = function(req, res){
+    if(req.user.id == req.params.id){
+        user.findByIdAndUpdate(req.params.id , req.body , function(err, User){
+            return res.redirect('back');
+
+        })
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
