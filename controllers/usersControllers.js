@@ -58,12 +58,14 @@ module.exports.create = async function(req, res){
 
 // create session acion
 module.exports.createSession = function(req, res){
+    req.flash('success','Logged in successfully');
     return res.redirect('/');
 }
 
 // destroy session
 module.exports.destroySession = function(req,res){
     req.logOut();
+    req.flash('success', 'You have logged out');
     return res.redirect('/');
 }
 

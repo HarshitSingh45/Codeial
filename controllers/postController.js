@@ -4,7 +4,7 @@ const Comments = require('../models/comments');
 module.exports.createPost = async function(req, res){
     try{
         console.log('Creating post');
-        let post = await Post.create({
+        await Post.create({
             content : req.body.content,
             user: req.user._id
         });
@@ -21,9 +21,8 @@ module.exports.destroy = async function(req, res){
         if(post){
             if(req.user.id == post.user){
                 post.remove();
-                Comments.deleteMany({ post: req.params.id}, function(err){
-                    return res.redirect('back');
-                });
+                await Comments.deleteMany({ post: req.params.id});
+                return res.redirect('back');
             }
         }else{
             res.redirect('back');
@@ -32,5 +31,4 @@ module.exports.destroy = async function(req, res){
         console.log(`Error in deleting the post ${err}`);
         return;
     }
-    
 }
