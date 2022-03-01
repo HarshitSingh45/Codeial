@@ -1,12 +1,15 @@
 const user = require('../models/users');
 
-module.exports.user = function(req,res){
-    user.findById(req.params.id, function(err, User){
+module.exports.user = async function(req,res){
+    try{
+        let User = await user.findById(req.params.id);
         return res.render('users', {
             title: 'user page',
             profile_user: User
         });
-    })   
+    }catch(err){
+        console.log(`Error occured in finding the user profile ${err}`)
+    }    
 }
 
 // Signup action
@@ -32,27 +35,25 @@ module.exports.signin = function(req,res){
 }
 
 // create action
-module.exports.create = function(req, res){
-    // validating password and confirm password is same or not
-    console.log('creating user');
-    if(req.body.password != req.body.Cpassword ){
-        return res.redirect('back');
-    }
+module.exports.create = async function(req, res){
+    try{
+        // validating password and confirm password is same or not
+        console.log('creating user');
+        if(req.body.password != req.body.Cpassword ){
+            return res.redirect('back');
+        }
 
-    user.findOne({email: req.body.email}, function(err, User){
-        if(err){console.log('Error in finding the user'); return}
-
+        let User = await user.findOne({email: req.body.email});
         if(!User){
-            user.create(req.body, function(err, User){
-                if(err){console.log('Error in creating user while signup',err); return}
-
-                return res.redirect('/users/signin');
-            });
+            let USER = await user.create(req.body);
+            return res.redirect('/users/signin');
         }else{
             return res.redirect('back');
         }
-    })
-
+    }catch(err){
+        console.log(`Error occured in creating the user ${err}`);
+        return;
+    }
 }
 
 // create session acion
@@ -66,13 +67,16 @@ module.exports.destroySession = function(req,res){
     return res.redirect('/');
 }
 
-module.exports.update = function(req, res){
-    if(req.user.id == req.params.id){
-        user.findByIdAndUpdate(req.params.id , req.body , function(err, User){
+module.exports.update = async function(req, res){
+    try{
+        if(req.user.id == req.params.id){
+            let User = await user.findByIdAndUpdate(req.params.id , req.body);
             return res.redirect('back');
-
-        })
-    }else{
-        return res.status(401).send('Unauthorized');
+        }else{
+            return res.status(401).send('Unauthorized');
+        }
+    }catch(err){
+        console.log(`Error occured in updating the user details ${err}`);
+        return;
     }
 }
