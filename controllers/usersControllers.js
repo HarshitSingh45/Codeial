@@ -8,16 +8,18 @@ module.exports.user = async function(req,res){
             profile_user: User
         });
     }catch(err){
-        console.log(`Error occured in finding the user profile ${err}`)
+        req.flash('error','Error occured in finding the user profile');
+        return res.redirect('back');
     }    
 }
 
 // Signup action
 module.exports.signup = function(req,res){
     if(req.isAuthenticated()){
+        req.flash('success',"Don't need to sign up, You're already logged in");
         return res.redirect('/users/profile');
     }
-
+    req.flash('success','Enter details to sign up');
     return res.render('signup', {
         title: 'Codeial | Signup'
     })
@@ -26,6 +28,7 @@ module.exports.signup = function(req,res){
 // signin action
 module.exports.signin = function(req,res){
     if(req.isAuthenticated()){
+        req.flash('success',"Don't need to sign in, You're already logged in");
         return res.redirect('/users/profile');
     }
 
@@ -38,21 +41,23 @@ module.exports.signin = function(req,res){
 module.exports.create = async function(req, res){
     try{
         // validating password and confirm password is same or not
-        console.log('creating user');
         if(req.body.password != req.body.Cpassword ){
+            req.flash('error', 'Invalid details entered');
             return res.redirect('back');
         }
 
         let User = await user.findOne({email: req.body.email});
         if(!User){
             let USER = await user.create(req.body);
+            req.flash('success','Account created successfully');
             return res.redirect('/users/signin');
         }else{
+            req.flash('error','User already exists');
             return res.redirect('back');
         }
     }catch(err){
-        console.log(`Error occured in creating the user ${err}`);
-        return;
+        req.flash('error','Error occured in creating the user');
+        return res.redirect('back');
     }
 }
 
@@ -73,12 +78,14 @@ module.exports.update = async function(req, res){
     try{
         if(req.user.id == req.params.id){
             let User = await user.findByIdAndUpdate(req.params.id , req.body);
+            req.flash('success','Successfully updated details');
             return res.redirect('back');
         }else{
+            req.flash('error','Alert ! Unauthorized users');
             return res.status(401).send('Unauthorized');
         }
     }catch(err){
-        console.log(`Error occured in updating the user details ${err}`);
-        return;
+        req.flash('error','Error occured in updating the user details');
+        return res.redirect('back');
     }
 }

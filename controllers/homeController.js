@@ -21,7 +21,7 @@ module.exports.home = async function(req, res){
         });
 
     }catch(err){
-        console.log(`Error in loading home page ${err}`);
+        req.flash('error',err);
         return;
     }
     
