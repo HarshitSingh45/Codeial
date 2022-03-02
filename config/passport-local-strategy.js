@@ -8,20 +8,22 @@ const user = require('../models/users');
 // authentication using passport
 passport.use(new LocalStrategy({
     // we are telling here what is our username field in our schema ig it should be unique
-    usernameField: 'email'
+    usernameField: 'email',
+    passReqToCallback: true
     },
-    function(email , password, done){
+    function(req, email , password, done){
         // find a user and establish the identity
         user.findOne({email: email}, function(err, User){
             // in findOne(first email is property name and second email is the value)
             if(err){
-                console.log('Error in finding the user --> Passport')
+                req.flash('error', 'Error Occured');
                 // done fn takes two argument 1- err 2- something else
                 // done will report error to passport
                 return done(err);
             }
             if(!User || User.password != password){
-                console.log('Invalid Username/Pasword');
+                req.flash('error', 'Invalid Username/Pasword');
+                console.log();
                 return done(null, false); // false indicates authentication failed
             }
             // if user found
