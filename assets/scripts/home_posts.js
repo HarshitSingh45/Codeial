@@ -1,3 +1,4 @@
+const { serialize } = require("v8");
 
 {
     // method to submit form data for new post using AJAX
@@ -11,8 +12,11 @@
                 url: '/posts/create',
                 // sending data
                 data: newPostForm.serialize(), // this converts the form data into json
+                // data: JSON.stringify(newPostForm),
                 success: function(data){
                     console.log(data);
+                    let newPost = newPostDom(data.data.post);
+                    $('#posts-list-container>ul').prepend(newPost);
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -22,6 +26,38 @@
         })
     }
     // method to create post in DOM
-    
+    let newPostDom = function(post){
+        return $(`<li id="post-${ post._id}">
+                        <div>
+                            ${ post.content }
+                            <small>
+                                ${ post.user.name }
+                            </small>
+                            &nbsp; &nbsp; &nbsp; &nbsp;
+                        
+                                <a class="delete-post-button" href="/posts/destroy/${post._id}">
+                                    <button type="submit"> Delete Post </button>
+                                </a>
+                        
+                            
+                        </div>   
+                        <div class="post-commets">
+
+                                <form action="comments/create" method="post">
+                                    <input type="text" name="content" placeholder="type here to add comment">
+                                    <input type="hidden" name="post" value="${post._id}">
+                                    <input type="submit" value="ADD COMMENT">
+                                </form>
+
+                        </div>
+                        <div class="post=comments=list " style="border: 1px solid coral;">
+                            <h3>comments</h3>
+                            <ul id="post-comments-${post._id}">
+                               
+                            </ul>
+                        </div>
+                    </li>`)
+    }
+
     createPost();
 }

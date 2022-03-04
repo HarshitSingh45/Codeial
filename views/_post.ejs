@@ -1,4 +1,4 @@
-<li>
+<li id="post-<%= post._id%>">
     <div>
         <%= post.content %>
         <small>
@@ -6,7 +6,7 @@
         </small>
         &nbsp; &nbsp; &nbsp; &nbsp;
         <% if(locals.user && locals.user.id == post.user.id) { %>
-            <a href="/posts/destroy/<%= post._id %>">
+            <a class="delete-post-button" href="/posts/destroy/<%= post._id %>">
                 <button type="submit"> Delete Post </button>
             </a>
         <% } %>
