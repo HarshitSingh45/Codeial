@@ -16,6 +16,7 @@
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
+                    // createComment($(` #post-comments-${data.data.post._id}`, newPost));
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -24,6 +25,7 @@
 
         })
     }
+    
     // method to create post in DOM
     let newPostDom = function(post){
         return $(`<li id="post-${ post._id}">
