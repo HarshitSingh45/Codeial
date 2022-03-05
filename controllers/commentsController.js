@@ -17,9 +17,9 @@ module.exports.create = async function(req, res){
             if(req.xhr){
                 return res.status(200).json({
                     data: {
-                        comment: comment
+                        comment: comment,
                     },
-                    message: 'Comment created'
+                    message: 'Comment Created'
                 })
             }
             req.flash('success', 'Commented successfully on post')
@@ -33,6 +33,7 @@ module.exports.create = async function(req, res){
     
 }
 
+
 module.exports.destroy = async function(req, res){
     try{
         let comment = await Comment.findById(req.params.id);
@@ -41,10 +42,21 @@ module.exports.destroy = async function(req, res){
                 let postId = comment.post;
                 comment.remove();
 
-                Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}}, function(err,post){
-                    req.flash('success', 'Comment deleted successfully');
-                    return res.redirect('back');
-                })
+                // Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}}, function(err,post){
+                //     req.flash('success', 'Comment deleted successfully');
+                //     return res.redirect('back');
+                // })
+                let post = await Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}});
+                if(req.xhr){
+                    return res.status(200).json({
+                        data: {
+                            commentId: req.params.id
+                        },
+                        message: 'comment deleted'
+                    })
+                }
+                req.flash('success', 'Comment deleted successfully');
+                return res.redirect('back');
             }
             else{
                 return res.redirect('back');

@@ -16,7 +16,7 @@
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
-                    // createComment($(` #post-comments-${data.data.post._id}`, newPost));
+
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -25,7 +25,7 @@
 
         })
     }
-    
+
     // method to create post in DOM
     let newPostDom = function(post){
         return $(`<li id="post-${ post._id}">
@@ -49,7 +49,7 @@
                                     <input type="hidden" name="post" value="${post._id}">
                                     <input type="submit" value="ADD COMMENT">
                                 </form>
-
+                                
                         </div>
                         <div class="post=comments=list " style="border: 1px solid coral;">
                             <h3>comments</h3>
