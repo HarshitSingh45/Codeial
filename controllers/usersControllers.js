@@ -1,4 +1,6 @@
 const user = require('../models/users');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.user = async function(req,res){
     try{
@@ -89,8 +91,12 @@ module.exports.update = async function(req, res){
                 User.email = req.body.email;
 
                 if(req.file){
+                    if(User.avatar){
+                        // for deleting we need fs and path 
+                        fs.unlinkSync(path.join(__dirname, '..', User.avatar));
+                    }
                     // this is saving the of the uploaded file into the avatar field in the user
-                    User.avatar = User.avatar+ '/' +req.file.filename
+                    User.avatar = user.avatarPath + '/' +req.file.filename
                 }
                 User.save();
                 return res.redirect('back');

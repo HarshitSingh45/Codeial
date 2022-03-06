@@ -34,6 +34,8 @@ const userSchema = new mongoose.Schema({
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
       cb(null, file.fieldname + '-' + uniqueSuffix);
+    // cb(null, file.fieldname + '-' + Date.now());
+
       // every file will be saved avatar(i.e fieldname)-date.now to avoid name conflict
     }
   });
