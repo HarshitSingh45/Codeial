@@ -79,9 +79,6 @@ module.exports.destroySession = function(req,res){
 module.exports.update = async function(req, res){
     try{
         if(req.user.id == req.params.id){
-            // let User = await user.findByIdAndUpdate(req.params.id , req.body);
-            // req.flash('success','Successfully updated details');
-            // return res.redirect('back');
             let User = await user.findById(req.params.id);
             user.uploadedAvatar(req, res, function(err){
                 if(err){ console.log('******* multer error ', err)}
