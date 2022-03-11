@@ -1,6 +1,6 @@
 const nodemailer = require('../config/nodemailer');
 
-// whenever a new comment is made i just need to call this mailer
+// whenever a new comment is made it just need to call this mailer
 
 // create a function which will send mail
 // this is another way of exporting method module.exports.newComments = function(){}
