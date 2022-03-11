@@ -10,7 +10,7 @@ let transporter = nodemailer.createTransport({
     // establishing identity with which you will be sending mail
     auth: {
         user: '500053523@stu.upes.ac.in',
-        pass: 'UPes@!23'
+        pass: 'UPes@123'
     }
 });
 
