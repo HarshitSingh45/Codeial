@@ -13,6 +13,8 @@
                     let newComment = newCommentDOM(data.data.comment);
                     $('.post-comments-list>ul').prepend(newComment);
                     deleteComment($(' .delete-comment-button', newComment));
+                    new ToggleLike($(' .toggle-like-button'), newComment);
+
                 },error: function(error){
                     console.log(error.responseText);
                 }
@@ -21,12 +23,17 @@
     }
     let newCommentDOM = function(comment){
         return $(`<li id="comment-${comment._id}">
-                    <p>${comment.content}</p>
-                    <small>${comment.user.name}</small>
+                        <p>${comment.content}</p>
+                        <small>${comment.user.name}</small>
                         <a class="delete-comment-button" href="/comments/destroy/${comment._id}">
                             <button type="submit">Delete Comment</button>
                         </a>
-                </li>`);
+                        <small>
+                            <a class ="toggle-like-button" data-likes = "0" href="/likes/toggle/?id=${comment._id}&type="Comment">
+                                0 Likes
+                            </a>
+                        </small>
+                    </li>`);
     }
     let deleteComment = function(deleteLink){
         $(deleteLink).click(function(e){
