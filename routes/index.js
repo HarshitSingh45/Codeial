@@ -9,6 +9,6 @@ router.use('/users', require('./users'));
 router.use('/comments', require('./comments'));
 router.use('/api', require('./api'));
 router.use('/likes', require('./likes'));
-
+router.use('/addFriend', require('./addfriend'));
 console.log("Router Loaded");
 module.exports = router;
