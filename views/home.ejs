@@ -46,3 +46,9 @@
 <!-- chat_sockets.js will be the server/observer -->
 
 <script src="/scripts/chat_engine.js"></script>
+<% if (locals.user){ %>
+    <script>
+        console.log('outside class');
+        new ChatEngine('user-chat-box', '<%= locals.user.email %>')
+    </script>
+<% } %>
