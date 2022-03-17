@@ -30,6 +30,8 @@
         </p>
     <% } %>
 </section>
+<%- include('_chat_box') -%>    
+
 <script src="/scripts/home_posts.js"></script>
 <script src="/scripts/home_comments.js"></script>
 <script src="/scripts/toggle_likes.js"></script>
@@ -39,3 +41,8 @@
         let toggleLike = new ToggleLike(self);
     })
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- this chat_engine will be communicating from the client side -->
+<!-- chat_sockets.js will be the server/observer -->
+
+<script src="/scripts/chat_engine.js"></script>

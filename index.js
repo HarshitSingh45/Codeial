@@ -15,6 +15,13 @@ const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
+// setup the chatServer to be used with socket.io
+const chatServer = require('http').Server(app);
+// we pass on this charServer to chatSocket
+const chatSocket = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat box is listening on port: 5000')
+
 app.use(express.urlencoded());
 app.use(cookieParser());
 

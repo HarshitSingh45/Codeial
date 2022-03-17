@@ -16,7 +16,11 @@ module.exports.addFriend = async function(req, res){
         from_user: req.user.id,
         to_user: req.params.id
     });
+
+
     // todo add friends in user model
+
+    
     console.log("Friendship added");
     return res.redirect('back');
 
