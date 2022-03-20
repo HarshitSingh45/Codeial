@@ -23,8 +23,8 @@ const development = {
         secure: false,
         // establishing identity with which you will be sending mail
         auth: {
-            user: '500053523@stu.upes.ac.in',
-            pass: 'UPes@123'
+            user: '50xxxxxxxxx@stu.upes.ac.in',
+            pass: 'xxxxxxxxx'
         }
     },
     google_client_ID: '509234467734-3lu76uo6plclqeguha7hrark10ho8dft.apps.googleusercontent.com',
